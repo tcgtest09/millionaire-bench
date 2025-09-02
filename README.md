@@ -23,8 +23,9 @@ python3 benchmark_llm.py
    - Enter a number between 1-45 to start with that question set (level 1-15)
    - Enter "0" to play all 45 rounds sequentially
 
-## Benchmark Results from my local machine
+## Benchmark Results
 
+### Locally by myself
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |------------|---------------|--------------|------------------|--------------|------------|
 | *gpt-oss-20b (low) | 21B | 4B | 80.177€ | 3 | T:1, K:0, P:1.0, Min:0.0 |
@@ -43,7 +44,7 @@ python3 benchmark_llm.py
 
 *thinking
 
-### User Submitted Results
+### User Submitted
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |:-------------------------------------------|:-------------|:--------------|:-----------------|:-------------|:----------------------------|
