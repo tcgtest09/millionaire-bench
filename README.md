@@ -29,7 +29,7 @@ python3 benchmark_llm.py
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |------------|------------------|-------------------|------------------|--------------|------------|
-| *gpt-oss-20b (low) | 20B | 5B | 80.177€ | 3 | T:1, K:0, P:1.0, Min:0.0 |
+| *gpt-oss-20b (low) | 21B | 4B | 80.177€ | 3 | T:1, K:0, P:1.0, Min:0.0 |
 | mistral-small-3.2 | 24B | 24B | 63.812€ | 2 | T:0.15, K:40, P:0.95, Min:0.05 |
 | qwen3-30b-a3b-2507 | 30B | 3B | 52.216€ | 2 | T:0.7, K:20, P:0.8, Min:0.0 |
 | meta-llama-3.1-8b-instruct | 8B | 8B | 23.904€ | 1 | T:0.6, K:40, P:0.9, Min:0.05 |
