@@ -58,3 +58,6 @@ python3 benchmark_llm.py
 
 ## Resources
 Questions: https://github.com/GerritKainz/wer_wird_millionaer
+
+## Thanks to
+[/user/FullOf_Bad_Ideas/](https://www.reddit.com/user/FullOf_Bad_Ideas/) for submitting `c4ai-command-a-03-2025`, `Behemoth-123B-v1.2` and `glm-4.5-air`
