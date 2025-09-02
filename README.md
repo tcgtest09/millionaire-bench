@@ -45,10 +45,15 @@ python3 benchmark_llm.py
 | gemma-3-4b | 4B | 4B | 66€ | 0 | T:1, K:64, P:0.95, Min:0 |
 | glm-4.5-air | 106B | 12B | 30€ | 0 | T:0.6, K:40, P:0.9, Min:0.1 |
 
-
 *thinking
 
-*last updated: 2025/09/02*
+### User Submitted Results
+
+| Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
+|------------|------------------|-------------------|------------------|--------------|------------|
+| c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
+| Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
+| glm-4.5-air | 106B | 12B | 30€ | 0 | T:0.6, K:40, P:0.9, Min:0.1 |
 
 ## Rules
 - quant Q4_K_M for all models
