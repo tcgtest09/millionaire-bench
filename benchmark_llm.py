@@ -6,14 +6,14 @@ import sys
 
 # Configuration - You can modify these values
 SYSTEM_PROMPT = "Du bist ein Kandidat bei 'Wer wird Millionaer' und musst Fragen auf Deutsch beantworten. Denke sorgfaeltig nach und waehle die beste Antwort aus den vier Optionen. Antworte AUSCHLIESSLICH mit einem einzigen Buchstaben: A, B, C oder D. Keine andere Erklaerung, nur der Buchstabe! Beispiel: Wenn A die richtige Antwort ist, antworte nur: A"
-MODEL_NAME = "mistralai/mistral-small-3.2"
+MODEL_NAME = "llama-3.2-3b-instruct"
 LLM_SERVER_URL = "http://localhost:1234/v1/chat/completions"
-TEMPERATURE = 0.15
+TEMPERATURE = 0.6
 TOP_K = 40
-TOP_P = 0.95
-MIN_P = 0.05
-TOTAL_PARAMETERS = "24B"  # e.g., "7B", "70B", etc.
-ACTIVE_PARAMETERS = "24B"  # e.g., "7B", "35B", etc. (for MoE models)
+TOP_P = 0.9
+MIN_P = 0
+TOTAL_PARAMETERS = "3B"  # e.g., "7B", "70B", etc.
+ACTIVE_PARAMETERS = "3B"  # e.g., "7B", "35B", etc. (for MoE models)
 
 # Prize amounts for each level
 PRIZE_AMOUNTS = {
