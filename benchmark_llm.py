@@ -261,7 +261,10 @@ def get_llm_response(prompt, system_prompt, model_name):
         
         response = requests.post(LLM_SERVER_URL, json=data, headers=headers, timeout=60)
         if response.status_code == 200:
-            result = response.json()["choices"][0]["message"]["content"].strip()
+            # Extract content and handle reasoning models that include thinking before the answer
+            content = response.json()["choices"][0]["message"]["content"]
+            # For reasoning models, extract the part after the last thinking separator
+            result = content.split('</scratchpad>')[-1].strip(' \t\n\r')
             # Extract just the letter if there's more text
             # First check if the result is directly a letter
             if result.upper() in ['A', 'B', 'C', 'D']:
