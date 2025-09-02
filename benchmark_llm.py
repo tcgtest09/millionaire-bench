@@ -5,7 +5,7 @@ import time
 import sys
 
 # Configuration - You can modify these values
-SYSTEM_PROMPT = "Du bist ein Kandidat bei 'Wer wird Millionaer' und musst Fragen auf Deutsch beantworten. Denke sorgfaeltig nach und waehle die beste Antwort aus den vier Optionen. Antworte AUSCHLIESSLICH mit einem einzigen Buchstaben: A, B, C oder D. Keine andere Erklaerung, nur der Buchstabe! Beispiel: Wenn A die richtige Antwort ist, antworte nur: A"
+SYSTEM_PROMPT = "You are a contestant on 'Who Wants to Be a Millionaire' and must answer questions in German. Think carefully and choose the best answer from the four options. Respond EXCLUSIVELY with a single letter: A, B, C, or D. No other explanation, just the letter! Example: If A is the correct answer, respond only: A"
 MODEL_NAME = "llama-3.2-3b-instruct"
 LLM_SERVER_URL = "http://localhost:1234/v1/chat/completions"
 TEMPERATURE = 0.6
@@ -42,12 +42,12 @@ def load_questions(filename):
 def get_user_choice():
     """Ask user which question number to start with"""
     try:
-        choice = input("Welche Frage soll als erste gestellt werden? (Standard: 1, 0 fuer alle 45 Fragen): ").strip()
+        choice = input("Which question should be asked first? (Default: 1, 0 for all 45 questions): ").strip()
         if choice == "":
             return 1
         return int(choice)
     except ValueError:
-        print("Ungueltige Eingabe. Verwende Frage #1.")
+        print("Invalid input. Using question #1.")
         return 1
 
 def calculate_average_amount(rounds):
@@ -92,19 +92,19 @@ def play_single_game(questions, start_question=1):
     question_number = start_question
     correct_answers = 0
     
-    print(f"Starte das Spiel mit Frage #{question_number}")
+    print(f"Starting the game with question #{question_number}")
     print("=" * 50)
     
     while current_level <= 15:
         # Get question for current level
         if str(current_level) not in questions:
-            print(f"Fehler: Keine Fragen fuer Level {current_level}")
+            print(f"Error: No questions for level {current_level}")
             break
             
         level_questions = questions[str(current_level)]
         
         if question_number > len(level_questions):
-            print(f"Fehler: Frage #{question_number} existiert nicht im Level {current_level}")
+            print(f"Error: Question #{question_number} does not exist in level {current_level}")
             break
             
         question_data = level_questions[question_number-1]
@@ -113,7 +113,7 @@ def play_single_game(questions, start_question=1):
         correct_answer = question_data[5]
         
         print(f"\nLevel {current_level} - {PRIZE_AMOUNTS[current_level]}")
-        print(f"Frage #{question_number}: {question_text}")
+        print(f"Question #{question_number}: {question_text}")
         print(f"A: {options[0]}")
         print(f"B: {options[1]}")
         print(f"C: {options[2]}")
@@ -123,12 +123,12 @@ def play_single_game(questions, start_question=1):
         prompt = format_question(question_data)
         
         # Get LLM response
-        print("\nWarte auf Antwort des KI-Modells...")
+        print("\nWaiting for AI model response...")
         start_time = time.time()
         llm_answer = get_llm_response(prompt, SYSTEM_PROMPT, MODEL_NAME)
         response_time = time.time() - start_time
         
-        print(f"KI-Modell Antwort: {llm_answer} (in {response_time:.2f} Sekunden)")
+        print(f"AI model response: {llm_answer} (in {response_time:.2f} seconds)")
         
         # Convert correct answer text to letter
         correct_options = options
@@ -136,29 +136,24 @@ def play_single_game(questions, start_question=1):
             correct_index = correct_options.index(correct_answer)
             correct_letter = ['A', 'B', 'C', 'D'][correct_index]
         except ValueError:
-            print(f"Fehler: Korrekte Antwort '{correct_answer}' nicht in den Optionen gefunden")
+            print(f"Error: Correct answer '{correct_answer}' not found in options")
             break
         
-        print(f"Richtige Antwort: {correct_letter} ({correct_answer})")
+        print(f"Correct answer: {correct_letter} ({correct_answer})")
         
         # Check if answer is correct
         if llm_answer == correct_letter:
-            print("✓ Richtig!")
+            print("✓ Correct!")
             correct_answers += 1
             current_level += 1
         else:
-            print(f"✗ Falsch! (KI sagte {llm_answer}, richtig war {correct_letter})")
+            print(f"✗ Wrong! (AI said {llm_answer}, correct was {correct_letter})")
             break
     
     # Game result
     print("\n" + "=" * 50)
-    print("SPIEL BEENDET")
+    print("GAME OVER")
     print("=" * 50)
-    print(f"Fragen richtig beantwortet: {correct_answers}/15")
-    if correct_answers > 0:
-        print(f"Letzte erreichte Preisstufe: {PRIZE_AMOUNTS[correct_answers]}")
-    else:
-        print("Keine Preisstufe erreicht")
     
     return {
         "start_question": start_question,
@@ -170,11 +165,11 @@ def play_all_games(questions):
     """Play all 45 questions sequentially"""
     results = []
     
-    print("Starte alle 45 Fragen nacheinander...")
+    print("Starting all 45 questions sequentially...")
     print("=" * 50)
     
     for question_num in range(1, 46):
-        print(f"\nFRAGE {question_num}/45")
+        print(f"\nQUESTION {question_num}/45")
         print("-" * 30)
         
         # Play single game with this question
@@ -184,12 +179,8 @@ def play_all_games(questions):
         
         # Clear context by adding a visual separator
         print("\n" + "=" * 50)
-        print("KONTEXT GELÖSCHT - NEUES SPIEL")
+        print("CONTEXT CLEARED - NEW GAME")
         print("=" * 50)
-    
-    # Summary
-    correct_count = sum(1 for r in results if r["correct_answers"] > 0)
-    print(f"\nZUSAMMENFASSUNG: {correct_count}/45 Fragen richtig beantwortet")
     
     return results
 
@@ -229,13 +220,13 @@ def get_llm_response(prompt, system_prompt, model_name):
                     return char.upper()
             
             # If we still haven't found a valid answer, return error
-            print(f"Warnung: Unerwartetes Antwortformat erhalten: '{result}'")
+            print(f"Warning: Unexpected response format received: '{result}'")
             return "INVALID"
         else:
-            print(f"Fehler: Server antwortete mit Status {response.status_code}")
+            print(f"Error: Server responded with status {response.status_code}")
             return "ERROR"
     except Exception as e:
-        print(f"Fehler bei der Anfrage: {e}")
+        print(f"Error in request: {e}")
         return "ERROR"
 
 def load_model_results(model_name):
@@ -353,26 +344,31 @@ def play_game(questions, start_question=1):
     results_data["average_final_amount"] = calculate_average_amount(results_data["rounds"])
     results_data["average_correctness_percentage"] = calculate_average_correctness_percentage(results_data["rounds"])
     
+    # Count million wins (questions with 15 correct answers)
+    million_wins = sum(1 for r in results_data["rounds"] if r["correct_answers"] == 15)
+    
     # Save updated results
     save_model_results(results_data, result_filename)
     
-    print(f"Ergebnis gespeichert in: {result_filename}")
-    print(f"Durchschnittlicher Gewinn: {results_data['average_final_amount']}")
-    print(f"Durchschnittliche Korrektheit: {results_data['average_correctness_percentage']}%")
+    # Improved summary display
+    print(f"Million Wins: {million_wins}")
+    print(f"Results saved in: {result_filename}")
+    print(f"Average winnings: {results_data['average_final_amount']}")
+    print(f"Parameters: T:{TEMPERATURE}, K:{TOP_K}, P:{TOP_P}, Min:{MIN_P}")
     
     return game_results
 
 def main():
     """Main function"""
-    print("Wer wird Millionaer - LLM Benchmark")
+    print("Who Wants to Be a Millionaire - LLM Benchmark")
     print("=" * 50)
     
     # Load questions
     try:
         questions = load_questions("fragen_antworten.json")
-        print(f"Fragen geladen: {len(questions)} Level")
+        print(f"Questions loaded: {len(questions)} levels")
     except Exception as e:
-        print(f"Fehler beim Laden der Fragen: {e}")
+        print(f"Error loading questions: {e}")
         return
     
     # Get user choice
@@ -381,7 +377,7 @@ def main():
     # Play game
     result = play_game(questions, start_question)
     
-    print("\nDanke fuers Spielen!")
+    print("\nThanks for playing!")
 
 if __name__ == "__main__":
     main()
