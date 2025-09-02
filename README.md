@@ -23,7 +23,7 @@ python3 benchmark_llm.py
    - Enter a number between 1-45 to start with that question set (level 1-15)
    - Enter "0" to play all 45 rounds sequentially
 
-## Benchmark Results
+## Benchmark Results from my local machine
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |------------|---------------|--------------|------------------|--------------|------------|
@@ -32,6 +32,7 @@ python3 benchmark_llm.py
 | qwen3-30b-a3b-2507 | 30B | 3B | 52.216€ | 2 | T:0.7, K:20, P:0.8, Min:0.0 |
 | meta-llama-3.1-8b-instruct | 8B | 8B | 23.904€ | 1 | T:0.6, K:40, P:0.9, Min:0.05 |
 | microsoft-phi-4 | 14B | 14B | 5.884€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
+| hermes-4-14b | 14B | 14B | 3.954€ | 0 | T:0.6, K:20, P:0.95, Min:0.05 |
 | gemma-3-12b | 12B | 12B | 3.648€ | 0 | T:0.8, K:40, P:0.9, Min:0.05 |
 | granite-3.2-8b | 8B | 8B | 726€ | 0 | T:0.6, K:50, P:0.9, Min:0.05 |
 | qwen3-4b-2507 | 4B | 4B | 643€ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
@@ -41,15 +42,6 @@ python3 benchmark_llm.py
 | phi-4-mini-instruct | 3B | 3B | 84€ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
 
 *thinking
-
-### Different quant tests
-| Model Name | Q4_K_M | Q8_0 | Difference |
-|------------|--------|------|------------|
-| qwen3-4b-instruct-2507 | 643€ | 4.457€ | +593% |
-| gemma-3-4b | 103€ | 141€ | +36% |
-| llama-3.2-3b-instruct | 104€ | 78€ | -25% |
-
-ran every test 3 times and picked the median. results are very inconsistent for small models (±40%)
 
 ### User Submitted Results
 
@@ -88,6 +80,15 @@ ran every test 3 times and picked the median. results are very inconsistent for 
 | meta-llama/llama-3.2-3b-instruct | 3B | 3B | 121€ | 0 | T:0.6, P:1 |
 
 thanks to the reddit users `FullOf_Bad_Ideas` and `Pauli1_Go` for their help.
+
+### Different quant tests
+| Model Name | Q4_K_M | Q8_0 | Difference |
+|------------|--------|------|------------|
+| qwen3-4b-instruct-2507 | 643€ | 4.457€ | +593% |
+| gemma-3-4b | 103€ | 141€ | +36% |
+| llama-3.2-3b-instruct | 104€ | 78€ | -25% |
+
+ran every test 3 times and picked the median. results are very inconsistent for small models (±50%)
 
 ## Rules
 - 45 unique rounds
