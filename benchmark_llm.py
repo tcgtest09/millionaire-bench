@@ -3,6 +3,7 @@ import json
 import requests
 import time
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Configuration - You can modify these values
 SYSTEM_PROMPT = "You are a contestant on 'Who Wants to Be a Millionaire' and must answer questions in German. Think carefully and choose the best answer from the four options. Respond EXCLUSIVELY with a single letter: A, B, C, or D. No other explanation, just the letter! Example: If A is the correct answer, respond only: A"
@@ -15,6 +16,7 @@ TOP_P = 0.9
 MIN_P = 0
 TOTAL_PARAMETERS = "3B"  # e.g., "7B", "70B", etc.
 ACTIVE_PARAMETERS = "3B"  # e.g., "7B", "35B", etc. (for MoE models)
+CONCURRENCY_LEVEL = 1  # Number of concurrent game rounds (default of 1 for sequential play, set 45 to start all games at once)
 
 # Prize amounts for each level
 PRIZE_AMOUNTS = {
@@ -87,14 +89,15 @@ def calculate_average_amount(rounds):
     else:
         return f"{int(average)}€"
 
-def play_single_game(questions, start_question=1):
+def play_single_game(questions, start_question=1, silent=False):
     """Play a single game with one question"""
     current_level = 1
     question_number = start_question
     correct_answers = 0
     
-    print(f"Starting the game with question #{question_number}")
-    print("=" * 50)
+    if not silent:
+        print(f"Starting the game with question #{question_number}")
+        print("=" * 50)
     
     while current_level <= 15:
         # Get question for current level
@@ -113,23 +116,26 @@ def play_single_game(questions, start_question=1):
         options = question_data[1:5]
         correct_answer = question_data[5]
         
-        print(f"\nLevel {current_level} - {PRIZE_AMOUNTS[current_level]}")
-        print(f"Question #{question_number}: {question_text}")
-        print(f"A: {options[0]}")
-        print(f"B: {options[1]}")
-        print(f"C: {options[2]}")
-        print(f"D: {options[3]}")
+        if not silent:
+            print(f"\nLevel {current_level} - {PRIZE_AMOUNTS[current_level]}")
+            print(f"Question #{question_number}: {question_text}")
+            print(f"A: {options[0]}")
+            print(f"B: {options[1]}")
+            print(f"C: {options[2]}")
+            print(f"D: {options[3]}")
         
         # Format prompt for LLM
         prompt = format_question(question_data)
         
         # Get LLM response
-        print("\nWaiting for AI model response...")
+        if not silent:
+            print("\nWaiting for AI model response...")
         start_time = time.time()
         llm_answer = get_llm_response(prompt, SYSTEM_PROMPT, MODEL_NAME)
         response_time = time.time() - start_time
         
-        print(f"AI model response: {llm_answer} (in {response_time:.2f} seconds)")
+        if not silent:
+            print(f"AI model response: {llm_answer} (in {response_time:.2f} seconds)")
         
         # Convert correct answer text to letter
         correct_options = options
@@ -140,21 +146,25 @@ def play_single_game(questions, start_question=1):
             print(f"Error: Correct answer '{correct_answer}' not found in options")
             break
         
-        print(f"Correct answer: {correct_letter} ({correct_answer})")
+        if not silent:
+            print(f"Correct answer: {correct_letter} ({correct_answer})")
         
         # Check if answer is correct
         if llm_answer == correct_letter:
-            print("✓ Correct!")
+            if not silent:
+                print("✓ Correct!")
             correct_answers += 1
             current_level += 1
         else:
-            print(f"✗ Wrong! (AI said {llm_answer}, correct was {correct_letter})")
+            if not silent:
+                print(f"✗ Wrong! (AI said {llm_answer}, correct was {correct_letter})")
             break
     
     # Game result
-    print("\n" + "=" * 50)
-    print("GAME OVER")
-    print("=" * 50)
+    if not silent:
+        print("\n" + "=" * 50)
+        print("GAME OVER")
+        print("=" * 50)
     
     return {
         "start_question": start_question,
@@ -163,25 +173,62 @@ def play_single_game(questions, start_question=1):
     }
 
 def play_all_games(questions):
-    """Play all 45 questions sequentially"""
+    """Play all 45 questions with configurable concurrency"""
     results = []
     
-    print("Starting all 45 questions sequentially...")
+    if CONCURRENCY_LEVEL > 1:
+        print(f"Starting all 45 rounds with concurrency level: {CONCURRENCY_LEVEL}")
+    else:
+        print("Starting all 45 questions sequentially...")
     print("=" * 50)
     
-    for question_num in range(1, 46):
-        print(f"\nQUESTION {question_num}/45")
-        print("-" * 30)
+    if CONCURRENCY_LEVEL == 1:
+        # Sequential execution (original behavior)
+        for question_num in range(1, 46):
+            print(f"\nQUESTION {question_num}/45")
+            print("-" * 30)
+            
+            # Play single game with this question
+            result = play_single_game(questions, question_num)
+            result["question_number"] = question_num
+            results.append(result)
+            
+            # Clear context by adding a visual separator
+            print("\n" + "=" * 50)
+            print("CONTEXT CLEARED - NEW GAME")
+            print("=" * 50)
+    else:
+        # Concurrent execution using thread pool
+        def run_game(q_num):
+            res = play_single_game(questions, q_num, silent=True)  # Silent mode for concurrent
+            res["question_number"] = q_num
+            return res
         
-        # Play single game with this question
-        result = play_single_game(questions, question_num)
-        result["question_number"] = question_num
-        results.append(result)
+        with ThreadPoolExecutor(max_workers=CONCURRENCY_LEVEL) as executor:
+            # Submit all tasks
+            futures = {executor.submit(run_game, num): num for num in range(1, 46)}
+            
+            # Collect results as they complete
+            completed_count = 0
+            for future in as_completed(futures):
+                try:
+                    result = future.result()
+                    results.append(result)
+                    completed_count += 1
+                    print(f"[Round {result['question_number']:2d}/45] Completed - Level {result['correct_answers']:2d} - Won {result['final_amount']:>10s} ({completed_count}/45 done)")
+                except Exception as e:
+                    q_num = futures[future]
+                    completed_count += 1
+                    print(f"[Round {q_num:2d}/45] Error: {e} ({completed_count}/45 done)")
+                    results.append({
+                        "question_number": q_num,
+                        "start_question": q_num,
+                        "correct_answers": 0,
+                        "final_amount": "0€"
+                    })
         
-        # Clear context by adding a visual separator
-        print("\n" + "=" * 50)
-        print("CONTEXT CLEARED - NEW GAME")
-        print("=" * 50)
+        # Sort results to maintain order
+        results.sort(key=lambda x: x["question_number"])
     
     return results
 
