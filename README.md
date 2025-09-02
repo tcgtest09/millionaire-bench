@@ -1,4 +1,4 @@
-# LLM Benchmark for "Wer wird Millionär?" Questions
+# "Wer wird Millionär?" LLM Benchmark
 
 This repository contains a script to test local LLMs with German "Who Wants to Be a Millionaire" questions. Results are stored as JSON files.
 
@@ -24,7 +24,6 @@ python3 benchmark_llm.py
 3. When prompted, enter which question to start with:
    - Enter a number between 1-45 to start with that question set (level 1-15)
    - Enter "0" to play all 45 rounds sequentially
-   - Press Enter without input to start with question #1
 
 ## Benchmark Results
 

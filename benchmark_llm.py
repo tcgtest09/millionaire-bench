@@ -12,9 +12,8 @@ TEMPERATURE = 0.15
 TOP_K = 40
 TOP_P = 0.95
 MIN_P = 0.05
-# Metadata fields (not affecting model settings)
-TOTAL_PARAMETERS = "15B"  # e.g., "7B", "70B", etc.
-ACTIVE_PARAMETERS = "15B"  # e.g., "7B", "35B", etc. (for MoE models)
+TOTAL_PARAMETERS = "24B"  # e.g., "7B", "70B", etc.
+ACTIVE_PARAMETERS = "24B"  # e.g., "7B", "35B", etc. (for MoE models)
 
 # Prize amounts for each level
 PRIZE_AMOUNTS = {
