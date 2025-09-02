@@ -54,13 +54,40 @@ ran every test 3 times and picked the median. results are very inconsistent for 
 ### User Submitted Results
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
-|------------|--------------|---------------|------------------|--------------|------------|
+|:-------------------------------------------|:-------------|:--------------|:-----------------|:-------------|:----------------------------|
+| gpt-5 (medium) | N/A | N/A | 813.783€ | 36 | T:0.6, P:1 |
+| o3 (medium) | N/A | N/A | 716.546€ | 31 | T:0.6, P:1 |
+| o4-mini (medium) | N/A | N/A | 512.221€ | 21 | T:0.6, P:1 |
 | z-ai/glm-4.5-FP8 | 355B | 32B | 410.813€ | 17 | T:0.6, K:40, P:0.9, Min:0.1 |
+| gpt-4o | N/A | N/A | 302.186€ | 12 | T:0.6, P:1 |
+| gpt-5-nano (medium) | N/A | N/A | 299.494€ | 12 | T:0.6, P:1 |
 | z-ai-glm-4.5-air-FP8 | 106B | 12B | 281.459€ | 12 | T:0.6, K:40, P:0.9, Min:0.1 |
+| gpt-5 (minimal) | N/A | N/A | 277.661€ | 11 | T:0.6, P:1 |
+| openai/gpt-oss-120b | 120B | 120B | 275.564€ | 11 | T:0.6, P:1 |
+| gpt-4.1 | N/A | N/A | 256.073€ | 10 | T:0.6, P:1 |
+| google/gemini-2.5-flash | N/A | N/A | 205.816€ | 7 | T:0.6, P:1 |
+| qwen/qwen3-235b-a22b-2507 | 235B | 22B | 163.144€ | 7 | T:0.6, P:1 |
+| deepseek/deepseek-chat-v3-0324 | 67.1B | 67.1B | 161.492€ | 6 | T:0.6, P:1 |
+| meta-llama/llama-4-maverick | 400B | 18B | 161.411€ | 6 | T:0.6, P:1 |
 | c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
+| deepseek/deepseek-chat-v3.1 | 68.5B | 68.5B | 142.581€ | 6 | T:0.6, P:1 |
+| moonshotai/kimi-k2 | 1T | 32B | 125.136€ | 4 | T:0.6, P:1 |
+| gpt-4.1-mini | N/A | N/A | 113.616€ | 3 | T:0.6, P:1 |
+| qwen/qwen3-coder | 480B | 480B | 92.022€ | 4 | T:0.6, P:1 |
 | Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
+| gpt-4o-mini | N/A | N/A | 74.698€ | 2 | T:0.6, P:1 |
+| google/gemini-2.5-flash-lite | N/A | N/A | 63.107€ | 2 | T:0.6, P:1 |
+| meta-llama/llama-3.3-70b-instruct | 70B | 70B | 58.309€ | 2 | T:0.6, P:1 |
+| gpt-5-mini (minimal) | N/A | N/A | 53.618€ | 1 | T:0.6, P:1 |
+| mistralai/mistral-small-3.2-24b-instruct | 24B | 24B | 41.017€ | 1 | T:0.6, P:1 |
+| gpt-4.1-nano | N/A | N/A | 37.838€ | 1 | T:0.6, P:1 |
+| google/gemma-3-27b-it | 27B | 27B | 7.634€ | 0 | T:0.6, P:1 |
+| gpt-5-nano (minimal) | N/A | N/A | 2.324€ | 0 | T:0.6, P:1 |
+| microsoft/phi-4 | 14B | 14B | 1.892€ | 0 | T:0.6, P:1 |
+| meta-llama/llama-3.2-1b-instruct | 1B | 1B | 155€ | 0 | T:0.6, P:1 |
+| meta-llama/llama-3.2-3b-instruct | 3B | 3B | 121€ | 0 | T:0.6, P:1 |
 
-`z-ai/glm-4.5-FP8`, `c4ai-command-a-03-2025`, `Behemoth-123B-v1.2` and `z-ai-glm-4.5-air-FP8` by [/user/FullOf_Bad_Ideas/](https://www.reddit.com/user/FullOf_Bad_Ideas/)
+thanks to the reddit users `FullOf_Bad_Ideas` and `Pauli1_Go` for their help.
 
 ## Rules
 - 45 unique rounds
