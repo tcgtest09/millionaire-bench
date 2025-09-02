@@ -48,9 +48,9 @@ python3 benchmark_llm.py
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |------------|------------------|-------------------|------------------|--------------|------------|
+| z-ai-glm-4.5-air-FP8 | 106B | 12B | 281.459€ | 12 | T:0.6, K:40, P:0.9, Min:0.1 |
 | c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
 | Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
-| glm-4.5-air | 106B | 12B | 30€ | 0 | T:0.6, K:40, P:0.9, Min:0.1 |
 
 ## Rules
 - quant Q4_K_M for all models
@@ -62,4 +62,4 @@ python3 benchmark_llm.py
 Questions: https://github.com/GerritKainz/wer_wird_millionaer
 
 ## Thanks to
-[/user/FullOf_Bad_Ideas/](https://www.reddit.com/user/FullOf_Bad_Ideas/) for submitting `c4ai-command-a-03-2025`, `Behemoth-123B-v1.2` and `glm-4.5-air`
+[/user/FullOf_Bad_Ideas/](https://www.reddit.com/user/FullOf_Bad_Ideas/) for submitting `c4ai-command-a-03-2025`, `Behemoth-123B-v1.2` and `z-ai-glm-4.5-air-FP8`
