@@ -1,6 +1,14 @@
 # "Wer wird Millionär?" LLM Benchmark
 
-This repository contains a script to test local LLMs with German "Who Wants to Be a Millionaire" questions. Results are stored as JSON files.
+ i have created a benchmark for german "who wants to be millionaire" questions. there are 45x15 questions, all 45 rounds go from easy to hard and all tested models ran through all 45 rounds and got kicked out of a round if the answer was wrong, keeping the current winnings. no jokers.
+
+i am a bit limited with the selection of llm's since i run them on my framework laptop 13 (amd ryzen 5 7640u with 32 gb ram), so i mainly used smaller llm's. also, qwen3's thinking went on for way to long for each question so i just tested non-thinking models except for gpt-oss-20b (low). but in my initial testing for qwen3-4b-thinking-2507, it seemed to worsen the quality of answers at least for the first questions.
+
+the first few questions are often word-play and idioms questions needing great understanding of the german language. these proved to be very hard for most llm's but are easily solvable by the average german. once the first few questions were solved the models had an easier time answering.
+
+i tried to use optimal model settings and included them in the table, let me know if they could be improved. all models are quant Q4_K_M.
+
+i have close to no python coding ability so the main script was created with qwen3-coder. the project (with detailed results for each model, and the queationaire) is open souce and available on github.
 
 ## Project Structure
 
@@ -9,7 +17,9 @@ This repository contains a script to test local LLMs with German "Who Wants to B
 ├── fragen_antworten.json     # Questions in JSON format
 ├── README.md                 # This file
 └── results/                  # Directory containing all benchmark results
-    └── result_{MODEL_NAME}.json
+    ├── result_{MODEL_NAME}.json
+	└── user-submitted
+		└── result_{MODEL_NAME}.json
 ```
 
 ## Usage
@@ -53,7 +63,6 @@ python3 benchmark_llm.py
 | Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
 
 ## Rules
-- quant Q4_K_M for all models
 - 45 unique rounds
 - if lost, current winnings are kept
 - no jokers
