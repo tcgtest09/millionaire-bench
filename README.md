@@ -10,18 +10,6 @@ i tried to use optimal model settings and included them in the table, let me kno
 
 i have close to no python coding ability so the main script was created with qwen3-coder. the project (with detailed results for each model, and the queationaire) is open souce and available on github.
 
-## Project Structure
-
-```
-├── benchmark_llm.py          # Main benchmark script
-├── fragen_antworten.json     # Questions in JSON format
-├── README.md                 # This file
-└── results/                  # Directory containing all benchmark results
-    ├── result_{MODEL_NAME}.json
-	└── user-submitted
-		└── result_{MODEL_NAME}.json
-```
-
 ## Usage
 
 1. Make sure your LLM server (e.g., LM Studio) is running and accessible at `http://localhost:1234`
@@ -38,7 +26,7 @@ python3 benchmark_llm.py
 ## Benchmark Results
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
-|------------|------------------|-------------------|------------------|--------------|------------|
+|------------|---------------|--------------|------------------|--------------|------------|
 | *gpt-oss-20b (low) | 21B | 4B | 80.177€ | 3 | T:1, K:0, P:1.0, Min:0.0 |
 | mistral-small-3.2 | 24B | 24B | 63.812€ | 2 | T:0.15, K:40, P:0.95, Min:0.05 |
 | qwen3-30b-a3b-2507 | 30B | 3B | 52.216€ | 2 | T:0.7, K:20, P:0.8, Min:0.0 |
@@ -46,18 +34,27 @@ python3 benchmark_llm.py
 | microsoft-phi-4 | 14B | 14B | 5.884€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
 | gemma-3-12b | 12B | 12B | 3.648€ | 0 | T:0.8, K:40, P:0.9, Min:0.05 |
 | granite-3.2-8b | 8B | 8B | 726€ | 0 | T:0.6, K:50, P:0.9, Min:0.05 |
-| qwen3-4b-2507 | 4B | 4B | 540€ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
-| llama-3.2-3b-instruct | 3B | 3B | 256€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
+| qwen3-4b-2507 | 4B | 4B | 643€ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
 | mistral-nemo-instruct-2407 | 12B | 12B | 227€ | 0 | T:0.3, K:-1, P:0.77, Min:0.025 |
+| llama-3.2-3b-instruct | 3B | 3B | 104€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
+| gemma-3-4b | 4B | 4B | 103€ | 0 | T:1, K:64, P:0.95, Min:0 |
 | phi-4-mini-instruct | 3B | 3B | 84€ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
-| gemma-3-4b | 4B | 4B | 66€ | 0 | T:1, K:64, P:0.95, Min:0 |
 
 *thinking
+
+### Different quant tests
+| Model Name | Q4_K_M | Q8_0 | Difference |
+|------------|--------|------|------------|
+| qwen3-4b-instruct-2507 | 643€ | 4.457€ | +593% |
+| gemma-3-4b | 103€ | 141€ | +36% |
+| llama-3.2-3b-instruct | 104€ | 78€ | -25% |
+ran every test 3 times and picked the median. results are very inconsistent for small models (±40%)
 
 ### User Submitted Results
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
-|------------|------------------|-------------------|------------------|--------------|------------|
+|------------|--------------|---------------|------------------|--------------|------------|
+| z-ai/glm-4.5-FP8 | 355B | 32B | 410.813€ | 17 | T:0.6, K:40, P:0.9, Min:0.1 |
 | z-ai-glm-4.5-air-FP8 | 106B | 12B | 281.459€ | 12 | T:0.6, K:40, P:0.9, Min:0.1 |
 | c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
 | Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
