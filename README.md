@@ -60,7 +60,7 @@ ran every test 3 times and picked the median. results are very inconsistent for 
 | c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
 | Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
 
-`c4ai-command-a-03-2025`, `Behemoth-123B-v1.2` and `z-ai-glm-4.5-air-FP8` by [/user/FullOf_Bad_Ideas/](https://www.reddit.com/user/FullOf_Bad_Ideas/)
+`z-ai/glm-4.5-FP8`, `c4ai-command-a-03-2025`, `Behemoth-123B-v1.2` and `z-ai-glm-4.5-air-FP8` by [/user/FullOf_Bad_Ideas/](https://www.reddit.com/user/FullOf_Bad_Ideas/)
 
 ## Rules
 - 45 unique rounds
