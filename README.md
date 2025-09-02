@@ -48,6 +48,7 @@ python3 benchmark_llm.py
 | qwen3-4b-instruct-2507 | 643€ | 4.457€ | +593% |
 | gemma-3-4b | 103€ | 141€ | +36% |
 | llama-3.2-3b-instruct | 104€ | 78€ | -25% |
+
 ran every test 3 times and picked the median. results are very inconsistent for small models (±40%)
 
 ### User Submitted Results
