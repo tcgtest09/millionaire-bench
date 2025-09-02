@@ -2,7 +2,6 @@
 import json
 import re
 import time
-
 import requests
 
 # Static answer schema - no need to be configurable
