@@ -49,9 +49,11 @@ python3 benchmark_llm.py
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |:-------------------------------------------|:-------------|:--------------|:-----------------|:-------------|:----------------------------|
 | gpt-5 (medium) | N/A | N/A | 813.783€ | 36 | T:0.6, P:1 |
+| google/gemini-2.5-pro | N/A | N/A | 742.004€ | 33 | T:0.6, P:1 |
 | o3 (medium) | N/A | N/A | 716.546€ | 31 | T:0.6, P:1 |
 | o4-mini (medium) | N/A | N/A | 512.221€ | 21 | T:0.6, P:1 |
 | z-ai/glm-4.5-FP8 | 355B | 32B | 410.813€ | 17 | T:0.6, K:40, P:0.9, Min:0.1 |
+| qwen/qwen3-235b-a22b | 235B | 22B | 369.027€ | 15 | T:0.6, P:1 |
 | gpt-4o | N/A | N/A | 302.186€ | 12 | T:0.6, P:1 |
 | gpt-5-nano (medium) | N/A | N/A | 299.494€ | 12 | T:0.6, P:1 |
 | z-ai-glm-4.5-air-FP8 | 106B | 12B | 281.459€ | 12 | T:0.6, K:40, P:0.9, Min:0.1 |
@@ -59,6 +61,7 @@ python3 benchmark_llm.py
 | openai/gpt-oss-120b | 120B | 120B | 275.564€ | 11 | T:0.6, P:1 |
 | gpt-4.1 | N/A | N/A | 256.073€ | 10 | T:0.6, P:1 |
 | google/gemini-2.5-flash | N/A | N/A | 205.816€ | 7 | T:0.6, P:1 |
+| qwen/qwq-32b | 32B | 32B | 197.799€ | 8 | T:0.6, P:1 |
 | qwen/qwen3-235b-a22b-2507 | 235B | 22B | 163.144€ | 7 | T:0.6, P:1 |
 | deepseek/deepseek-chat-v3-0324 | 67.1B | 67.1B | 161.492€ | 6 | T:0.6, P:1 |
 | meta-llama/llama-4-maverick | 400B | 18B | 161.411€ | 6 | T:0.6, P:1 |
