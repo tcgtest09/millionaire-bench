@@ -8,6 +8,7 @@ import sys
 SYSTEM_PROMPT = "You are a contestant on 'Who Wants to Be a Millionaire' and must answer questions in German. Think carefully and choose the best answer from the four options. Respond EXCLUSIVELY with a single letter: A, B, C, or D. No other explanation, just the letter! Example: If A is the correct answer, respond only: A"
 MODEL_NAME = "llama-3.2-3b-instruct"
 LLM_SERVER_URL = "http://localhost:1234/v1/chat/completions"
+LLM_API_KEY = "None"  # Optional, provide API key if required by your server
 TEMPERATURE = 0.6
 TOP_K = 40
 TOP_P = 0.9
@@ -193,6 +194,11 @@ def format_question(question_data):
 def get_llm_response(prompt, system_prompt, model_name):
     """Send prompt to LLM and get response"""
     try:
+        # Prepare headers with API key if provided
+        headers = {"Content-Type": "application/json"}
+        if LLM_API_KEY and LLM_API_KEY != "None" and LLM_API_KEY != "":
+            headers["Authorization"] = f"Bearer {LLM_API_KEY}"
+        
         data = {
             "model": model_name,
             "messages": [
@@ -206,7 +212,7 @@ def get_llm_response(prompt, system_prompt, model_name):
             "min_p": MIN_P
         }
         
-        response = requests.post(LLM_SERVER_URL, json=data, timeout=60)
+        response = requests.post(LLM_SERVER_URL, json=data, headers=headers, timeout=60)
         if response.status_code == 200:
             result = response.json()["choices"][0]["message"]["content"].strip()
             # Extract just the letter if there's more text
