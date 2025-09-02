@@ -29,6 +29,8 @@ python3 benchmark_llm.py
 
 | Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
 |------------|------------------|-------------------|------------------|--------------|------------|
+| c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
+| Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
 | *gpt-oss-20b (low) | 21B | 4B | 80.177€ | 3 | T:1, K:0, P:1.0, Min:0.0 |
 | mistral-small-3.2 | 24B | 24B | 63.812€ | 2 | T:0.15, K:40, P:0.95, Min:0.05 |
 | qwen3-30b-a3b-2507 | 30B | 3B | 52.216€ | 2 | T:0.7, K:20, P:0.8, Min:0.0 |
@@ -41,6 +43,8 @@ python3 benchmark_llm.py
 | mistral-nemo-instruct-2407 | 12B | 12B | 227€ | 0 | T:0.3, K:-1, P:0.77, Min:0.025 |
 | phi-4-mini-instruct | 3B | 3B | 84€ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
 | gemma-3-4b | 4B | 4B | 66€ | 0 | T:1, K:64, P:0.95, Min:0 |
+| glm-4.5-air | 106B | 12B | 30€ | 0 | T:0.6, K:40, P:0.9, Min:0.1 |
+
 
 *thinking
 
