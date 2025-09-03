@@ -31,13 +31,13 @@ python3 benchmark_llm.py
 | *gpt-oss-20b (low) | 21B | 4B | 80.177€ | 3 | T:1, K:0, P:1.0, Min:0.0 |
 | mistral-small-3.2 | 24B | 24B | 63.812€ | 2 | T:0.15, K:40, P:0.95, Min:0.05 |
 | qwen3-30b-a3b-2507 | 30B | 3B | 52.216€ | 2 | T:0.7, K:20, P:0.8, Min:0.0 |
+| mistral-nemo-instruct-2407 | 12B | 12B | 34.383€ | 1 | T:0.3, K:-1, P:0.77, Min:0.025 |
 | meta-llama-3.1-8b-instruct | 8B | 8B | 23.904€ | 1 | T:0.6, K:40, P:0.9, Min:0.05 |
 | microsoft-phi-4 | 14B | 14B | 5.884€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
 | hermes-4-14b | 14B | 14B | 3.954€ | 0 | T:0.6, K:20, P:0.95, Min:0.05 |
 | gemma-3-12b | 12B | 12B | 3.648€ | 0 | T:0.8, K:40, P:0.9, Min:0.05 |
 | qwen/qwen3-4b-2507 | 4B | 4B | 948€⁵ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
 | granite-3.2-8b | 8B | 8B | 726€ | 0 | T:0.6, K:50, P:0.9, Min:0.05 |
-| mistral-nemo-instruct-2407 | 12B | 12B | 227€ | 0 | T:0.3, K:-1, P:0.77, Min:0.025 |
 | phi-4-mini-instruct | 3B | 3B | 157€⁵ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
 | gemma-3-4b | 4B | 4B | 156€⁵ | 0 | T:1, K:64, P:0.95, Min:0 |
 | llama-3.2-3b-instruct | 3B | 3B | 125€⁵ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
