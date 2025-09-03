@@ -12,16 +12,16 @@ i have close to no python coding ability so the main script was created with qwe
 
 ## Usage
 
-1. Make sure your LLM server (e.g., LM Studio) is running and accessible at `http://localhost:1234`
-2. Run the benchmark script:
-
+1. Make sure your LLM server (e.g., LM Studio) is running (default is `http://localhost:1234`)
+2. Edit the config.json, change `model` and `inference_parameters` if needed
+3. Run the benchmark script:
 ```bash
 python3 benchmark_llm.py
 ```
 
-3. When prompted, enter which question to start with:
-   - Enter a number between 1-45 to start with that question set (level 1-15)
-   - Enter "0" to play all 45 rounds sequentially
+4. When prompted, enter which question to start with:
+	- Enter `0` to play all 45 rounds sequentially
+	- Enter a number between `1`-`45` to play with that question set (1x15 Questions)
 
 ## Benchmark Results
 
@@ -35,14 +35,14 @@ python3 benchmark_llm.py
 | microsoft-phi-4 | 14B | 14B | 5.884€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
 | hermes-4-14b | 14B | 14B | 3.954€ | 0 | T:0.6, K:20, P:0.95, Min:0.05 |
 | gemma-3-12b | 12B | 12B | 3.648€ | 0 | T:0.8, K:40, P:0.9, Min:0.05 |
+| qwen/qwen3-4b-2507 | 4B | 4B | 948€⁵ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
 | granite-3.2-8b | 8B | 8B | 726€ | 0 | T:0.6, K:50, P:0.9, Min:0.05 |
-| qwen3-4b-2507 | 4B | 4B | 643€ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
 | mistral-nemo-instruct-2407 | 12B | 12B | 227€ | 0 | T:0.3, K:-1, P:0.77, Min:0.025 |
-| llama-3.2-3b-instruct | 3B | 3B | 104€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
-| gemma-3-4b | 4B | 4B | 103€ | 0 | T:1, K:64, P:0.95, Min:0 |
-| phi-4-mini-instruct | 3B | 3B | 84€ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
+| phi-4-mini-instruct | 3B | 3B | 157€⁵ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
+| gemma-3-4b | 4B | 4B | 156€⁵ | 0 | T:1, K:64, P:0.95, Min:0 |
+| llama-3.2-3b-instruct | 3B | 3B | 125€⁵ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
 
-*thinking
+⁵ median of 5 results, * thinking
 
 ### User Submitted
 
