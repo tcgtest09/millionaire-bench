@@ -42,7 +42,7 @@ python3 benchmark_llm.py
 | gemma-3-4b | 4B | 4B | 156€ | 0 | T:1, K:64, P:0.95, Min:0 |
 | llama-3.2-3b-instruct | 3B | 3B | 125€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
 
-- * indicates only one 45 round run
+- *indicates only one, 45 round, run
 - all other winnings are the median result out of 5 runs
 - `gpt-oss-20b (low)` is the only thinking model tested
 
