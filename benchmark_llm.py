@@ -92,7 +92,7 @@ def get_user_choice():
     """Ask user which question number to start with"""
     try:
         choice = input(
-            "Welche Frage soll als erste gestellt werden? (Standard: 1, 0 fuer alle 45 Fragen): "
+            "Which question should be asked first? (Default: 1, 0 for all 45 questions): "
         ).strip()
         if choice == "":
             return 1
@@ -143,7 +143,7 @@ def play_single_game(questions, start_question=1, silent=False):
     correct_answers = 0
     
     if not silent:
-        print(f"Starte das Spiel mit Frage #{question_number}")
+        print(f"Starting game with question #{question_number}")
         print("=" * 50)
     while current_level <= 15:
         if str(current_level) not in questions:
@@ -154,7 +154,7 @@ def play_single_game(questions, start_question=1, silent=False):
 
         if question_number > len(level_questions):
             print(
-                f"Fehler: Frage #{question_number} existiert nicht im Level {current_level}"
+                f"Error: Question #{question_number} does not exist in level {current_level}"
             )
             break
 
@@ -165,7 +165,7 @@ def play_single_game(questions, start_question=1, silent=False):
         
         if not silent:
             print(f"\nLevel {current_level} - {PRIZE_AMOUNTS[current_level]}")
-            print(f"Frage #{question_number}: {question_text}")
+            print(f"Question #{question_number}: {question_text}")
             print(f"A: {options[0]}")
             print(f"B: {options[1]}")
             print(f"C: {options[2]}")
@@ -174,25 +174,25 @@ def play_single_game(questions, start_question=1, silent=False):
         prompt = format_question(question_data)
         
         if not silent:
-            print("\nWarte auf Antwort des KI-Modells...")
+            print("\nWaiting for AI model response...")
         start_time = time.time()
         llm_answer = get_llm_response(prompt, SYSTEM_PROMPT, MODEL_NAME)
         response_time = time.time() - start_time
         
         if not silent:
-            print(f"KI-Modell Antwort: {llm_answer} (in {response_time:.2f} Sekunden)")
+            print(f"AI model answer: {llm_answer} (in {response_time:.2f} seconds)")
         correct_options = options
         try:
             correct_index = correct_options.index(correct_answer)
             correct_letter = ["A", "B", "C", "D"][correct_index]
         except ValueError:
             print(
-                f"Fehler: Korrekte Antwort '{correct_answer}' nicht in den Optionen gefunden"
+                f"Error: Correct answer '{correct_answer}' not found in options"
             )
             break
 
         if not silent:
-            print(f"Richtige Antwort: {correct_letter} ({correct_answer})")
+            print(f"Correct answer: {correct_letter} ({correct_answer})")
 
         if llm_answer == correct_letter:
             if not silent:
@@ -206,13 +206,13 @@ def play_single_game(questions, start_question=1, silent=False):
     
     if not silent:
         print("\n" + "=" * 50)
-        print("SPIEL BEENDET")
+        print("GAME OVER")
         print("=" * 50)
-        print(f"Fragen richtig beantwortet: {correct_answers}/15")
+        print(f"Questions answered correctly: {correct_answers}/15")
         if correct_answers > 0:
-            print(f"Letzte erreichte Preisstufe: {PRIZE_AMOUNTS[correct_answers]}")
+            print(f"Last reached prize level: {PRIZE_AMOUNTS[correct_answers]}")
         else:
-            print("Keine Preisstufe erreicht")
+            print("No prize level reached")
     return {
         "start_question": start_question,
         "correct_answers": correct_answers,
@@ -225,15 +225,15 @@ def play_all_games(questions):
     results = []
     
     if CONCURRENCY_LEVEL > 1:
-        print(f"Starte alle 45 Runden mit Parallelität: {CONCURRENCY_LEVEL}")
+        print(f"Starting all 45 rounds with concurrency: {CONCURRENCY_LEVEL}")
     else:
-        print("Starte alle 45 Fragen nacheinander...")
+        print("Starting all 45 questions sequentially...")
     print("=" * 50)
     
     if CONCURRENCY_LEVEL == 1:
         # Sequential execution (original behavior)
         for question_num in range(1, 46):
-            print(f"\nFRAGE {question_num}/45")
+            print(f"\nQUESTION {question_num}/45")
             print("-" * 30)
             
             result = play_single_game(questions, question_num)
@@ -241,7 +241,7 @@ def play_all_games(questions):
             results.append(result)
             
             print("\n" + "=" * 50)
-            print("KONTEXT GELÖSCHT - NEUES SPIEL")
+            print("CONTEXT CLEARED - NEW GAME")
             print("=" * 50)
     else:
         # Concurrent execution using thread pool
@@ -261,11 +261,11 @@ def play_all_games(questions):
                     result = future.result()
                     results.append(result)
                     completed_count += 1
-                    print(f"[Runde {result['question_number']:2d}/45] Abgeschlossen - Level {result['correct_answers']:2d} - Gewonnen {result['final_amount']:>10s} ({completed_count}/45 fertig)")
+                    print(f"[Round {result['question_number']:2d}/45] Completed - Level {result['correct_answers']:2d} - Won {result['final_amount']:>10s} ({completed_count}/45 done)")
                 except Exception as e:
                     q_num = futures[future]
                     completed_count += 1
-                    print(f"[Runde {q_num:2d}/45] Fehler: {e} ({completed_count}/45 fertig)")
+                    print(f"[Round {q_num:2d}/45] Error: {e} ({completed_count}/45 done)")
                     results.append({
                         "question_number": q_num,
                         "start_question": q_num,
@@ -276,8 +276,6 @@ def play_all_games(questions):
         # Sort results to maintain order
         results.sort(key=lambda x: x["question_number"])
     
-    correct_count = sum(1 for r in results if r["correct_answers"] > 0)
-    print(f"\nZUSAMMENFASSUNG: {correct_count}/45 Fragen richtig beantwortet")
     return results
 
 
@@ -336,7 +334,7 @@ def parse_model_response(response_text):
     if valid_letters:
         return valid_letters[-1]
 
-    print(f"Warnung: Unerwartetes Antwortformat erhalten: '{response}'")
+    print(f"Warning: Unexpected response format received: '{response}'")
     return "INVALID"
 
 
@@ -390,16 +388,16 @@ def get_single_phase_response(prompt, system_prompt, model_name):
             parsed_answer = parse_model_response(result)
             return parsed_answer
         else:
-            print(f"Fehler: Server antwortete mit Status {response.status_code}")
+            print(f"Error: Server responded with status {response.status_code}")
             return "ERROR"
     except requests.exceptions.ConnectTimeout:
-        print("Fehler: Verbindung zum Server timeout")
+        print("Error: Connection to server timed out")
         return "ERROR"
     except requests.exceptions.ConnectionError:
-        print("Fehler: Kann nicht zum Server verbinden")
+        print("Error: Cannot connect to server")
         return "ERROR"
     except Exception as e:
-        print(f"Fehler bei der Anfrage: {e}")
+        print(f"Error in request: {e}")
         return "ERROR"
 
 
@@ -410,7 +408,7 @@ def get_two_phase_response(prompt, model_name):
     if LLM_API_KEY and LLM_API_KEY != "None" and LLM_API_KEY != "":
         headers["Authorization"] = f"Bearer {LLM_API_KEY}"
     
-    print("Phase 1: Denken und Analysieren...")
+    print("Phase 1: Thinking and Analyzing...")
 
     reasoning_data = {
         "model": model_name,
@@ -430,24 +428,24 @@ def get_two_phase_response(prompt, model_name):
     )
     if reasoning_response.status_code != 200:
         print(
-            f"Fehler in Phase 1: Server antwortete mit Status {reasoning_response.status_code}"
+            f"Error in Phase 1: Server responded with status {reasoning_response.status_code}"
         )
         return "ERROR"
 
     reasoning_result = reasoning_response.json()["choices"][0]["message"][
         "content"
     ].strip()
-    print(f"Phase 1 abgeschlossen ({len(reasoning_result)} Zeichen)")
+    print(f"Phase 1 completed ({len(reasoning_result)} characters)")
 
-    print("Phase 2: Strukturierte Antwort...")
+    print("Phase 2: Structured Response...")
 
-    answer_prompt = f"""Basierend auf der folgenden Analyse der Frage:
+    answer_prompt = f"""Based on the following analysis of the question:
 
-FRAGE: {prompt}
+QUESTION: {prompt}
 
-ANALYSE: {reasoning_result}
+ANALYSIS: {reasoning_result}
 
-Waehle jetzt die finale Antwort."""
+Now choose the final answer."""
 
     answer_data = {
         "model": model_name,
@@ -473,12 +471,12 @@ Waehle jetzt die finale Antwort."""
     answer_response = requests.post(LLM_SERVER_URL, json=answer_data, headers=headers, timeout=SINGLE_PHASE_TIMEOUT)
     if answer_response.status_code != 200:
         print(
-            f"Fehler in Phase 2: Server antwortete mit Status {answer_response.status_code}"
+            f"Error in Phase 2: Server responded with status {answer_response.status_code}"
         )
         return "ERROR"
 
     answer_result = answer_response.json()["choices"][0]["message"]["content"].strip()
-    print("Phase 2 abgeschlossen")
+    print("Phase 2 completed")
 
     parsed_answer = parse_model_response(answer_result)
     return parsed_answer
@@ -591,11 +589,11 @@ def play_game(questions, start_question=1):
     save_model_results(results_data, result_filename)
     
     # Improved summary display
-    print(f"Millionärs-Gewinne: {million_wins}")
-    print(f"Ergebnis gespeichert in: {result_filename}")
-    print(f"Durchschnittlicher Gewinn: {results_data['average_final_amount']}")
-    print(f"Durchschnittliche Korrektheit: {results_data['average_correctness_percentage']}%")
-    print(f"Parameter: T:{TEMPERATURE}, K:{TOP_K}, P:{TOP_P}, Min:{MIN_P}")
+    print(f"Results saved to: {result_filename}")
+    print(f"Millionaire wins: {million_wins}")
+    print(f"Average winnings: {results_data['average_final_amount']}")
+    print(f"Average correctness: {results_data['average_correctness_percentage']}%")
+    print(f"Parameters: T:{TEMPERATURE}, K:{TOP_K}, P:{TOP_P}, Min:{MIN_P}")
     return game_results
 
 
@@ -604,24 +602,24 @@ def main():
     print("Who Wants to Be a Millionaire - LLM Benchmark")
     print("=" * 50)
 
-    print(f"Modell: {MODEL_NAME}")
+    print(f"Model: {MODEL_NAME}")
     print(f"Server: {LLM_SERVER_URL}")
-    print(f"Zwei-Phasen-Reasoning: {USE_TWO_PHASE_REASONING}")
-    print(f"Parallelität: {CONCURRENCY_LEVEL}")
+    print(f"Two-Phase Reasoning: {USE_TWO_PHASE_REASONING}")
+    print(f"Concurrency: {CONCURRENCY_LEVEL}")
     print("-" * 50)
     
     try:
         questions = load_questions("fragen_antworten.json")
-        print(f"Fragen geladen: {len(questions)} Level")
+        print(f"Questions loaded: {len(questions)} levels")
     except Exception as e:
-        print(f"Fehler beim Laden der Fragen: {e}")
+        print(f"Error loading questions: {e}")
         return
 
     start_question = get_user_choice()
 
     result = play_game(questions, start_question)
     
-    print("\nDanke fuers Spielen!")
+    print("\nThanks for playing!")
 
 
 if __name__ == "__main__":
