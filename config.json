@@ -2,6 +2,7 @@
   "model": {
     "name": "google/gemma-3-12b",
     "server_url": "http://localhost:11434/v1/chat/completions",
+    "api_key": "None",
     "total_parameters": "12B",
     "active_parameters": "12B"
   },
@@ -20,5 +21,6 @@
     "system_prompt": "Du bist ein Kandidat bei \"Wer wird Millionaer\" und musst Fragen auf Deutsch beantworten. Denke sorgfaeltig nach und waehle die beste Antwort aus den vier Optionen. Antworte NUR im JSON Format mit dem Schema: {\"answer\": \"X\"} wobei X einer der Buchstaben A, B, C oder D ist.",
     "reasoning_system_prompt": "Du bist ein Kandidat bei 'Wer wird Millionaer' und musst Fragen auf Deutsch beantworten. Analysiere die Frage sorgfaeltig und denke durch alle Aspekte durch. Du kannst so viel denken und schreiben wie du moechtest.",
     "answer_system_prompt": "Basierend auf deiner vorherigen Analyse, waehle jetzt die finale Antwort. Antworte NUR im JSON Format mit dem Schema: {\"answer\": \"X\"} wobei X einer der Buchstaben A, B, C oder D ist."
-  }
+  },
+  "concurrency_level": 1
 }
