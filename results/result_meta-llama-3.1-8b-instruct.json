@@ -326,5 +326,6 @@
     }
   ],
   "average_final_amount": "5.884€",
-  "average_correctness_percentage": 70.97
+  "average_correctness_percentage": 70.97,
+  "million_wins": 0
 }

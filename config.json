@@ -1,16 +1,16 @@
 {
   "model": {
-    "name": "google/gemma-3-12b",
-    "server_url": "http://localhost:11434/v1/chat/completions",
+    "name": "google/gemma-3-4b",
+    "server_url": "http://localhost:1234/v1/chat/completions",
     "api_key": "None",
-    "total_parameters": "12B",
-    "active_parameters": "12B"
+    "total_parameters": "4B",
+    "active_parameters": "4B"
   },
   "inference_parameters": {
-    "temperature": 1.1,
-    "top_k": 40,
+    "temperature": 1,
+    "top_k": 64,
     "top_p": 0.95,
-    "min_p": 0.05
+    "min_p": 0
   },
   "timeouts": {
     "single_phase": 600,

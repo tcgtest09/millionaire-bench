@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os
 import re
 import time
 import requests
@@ -488,42 +489,28 @@ def load_model_results(model_name):
     safe_model_name = model_name.replace("/", "-")
     result_filename = f"result_{safe_model_name}.json"
 
-    try:
-        with open(result_filename, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if "model_parameters" not in data:
-                data["model_parameters"] = {
-                    "temperature": TEMPERATURE,
-                    "top_k": TOP_K,
-                    "top_p": TOP_P,
-                    "min_p": MIN_P,
-                }
-            else:
-                data["model_parameters"] = {
-                    "temperature": TEMPERATURE,
-                    "top_k": TOP_K,
-                    "top_p": TOP_P,
-                    "min_p": MIN_P,
-                }
-            if "total_parameters" not in data:
-                data["total_parameters"] = TOTAL_PARAMETERS
-            if "active_parameters" not in data:
-                data["active_parameters"] = ACTIVE_PARAMETERS
-            return data, result_filename
-    except FileNotFoundError:
-        initial_data = {
-            "model": model_name,
-            "model_parameters": {
-                "temperature": TEMPERATURE,
-                "top_k": TOP_K,
-                "top_p": TOP_P,
-                "min_p": MIN_P,
-            },
-            "total_parameters": TOTAL_PARAMETERS,
-            "active_parameters": ACTIVE_PARAMETERS,
-            "rounds": [],
-        }
-        return initial_data, result_filename
+    # Check if file exists, if so create a new file with suffix
+    if os.path.exists(result_filename):
+        counter = 2
+        while os.path.exists(f"result_{safe_model_name}_{counter}.json"):
+            counter += 1
+        result_filename = f"result_{safe_model_name}_{counter}.json"
+        print(f"Result file already exists, creating new file: {result_filename}")
+
+    # Always create new file (don't load existing data)
+    initial_data = {
+        "model": model_name,
+        "model_parameters": {
+            "temperature": TEMPERATURE,
+            "top_k": TOP_K,
+            "top_p": TOP_P,
+            "min_p": MIN_P,
+        },
+        "total_parameters": TOTAL_PARAMETERS,
+        "active_parameters": ACTIVE_PARAMETERS,
+        "rounds": [],
+    }
+    return initial_data, result_filename
 
 
 def save_model_results(results_data, filename):
@@ -596,6 +583,9 @@ def play_game(questions, start_question=1):
     
     # Count million wins (questions with 15 correct answers)
     million_wins = sum(1 for r in results_data["rounds"] if r["correct_answers"] == 15)
+    
+    # Add million_wins field to results
+    results_data["million_wins"] = million_wins
     
     # Save updated results
     save_model_results(results_data, result_filename)
