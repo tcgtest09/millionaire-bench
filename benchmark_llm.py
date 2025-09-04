@@ -62,6 +62,7 @@ ANSWER_SYSTEM_PROMPT = CONFIG["reasoning"]["answer_system_prompt"]
 SINGLE_PHASE_TIMEOUT = CONFIG["timeouts"]["single_phase"]
 REASONING_PHASE_TIMEOUT = CONFIG["timeouts"]["reasoning_phase"]
 CONCURRENCY_LEVEL = CONFIG.get("concurrency_level", 1)  # Number of concurrent game rounds
+CUSTOM_FIELD_CONFIG = CONFIG["reasoning"].get("custom_field", {})  # Dynamic custom field configuration (Added for reasoning_effort)
 
 PRIZE_AMOUNTS = {
     1: "50€",
@@ -369,6 +370,10 @@ def get_single_phase_response(prompt, system_prompt, model_name):
         "top_p": TOP_P,
         "min_p": MIN_P,
     }
+    
+    # Add custom field if configured
+    if CUSTOM_FIELD_CONFIG and "field_name" in CUSTOM_FIELD_CONFIG and "field_value" in CUSTOM_FIELD_CONFIG:
+        data[CUSTOM_FIELD_CONFIG["field_name"]] = CUSTOM_FIELD_CONFIG["field_value"]
 
     # Add structured output support
     try:
@@ -422,6 +427,10 @@ def get_two_phase_response(prompt, model_name):
         "top_p": TOP_P,
         "min_p": MIN_P,
     }
+    
+    # Add custom field if configured
+    if CUSTOM_FIELD_CONFIG and "field_name" in CUSTOM_FIELD_CONFIG and "field_value" in CUSTOM_FIELD_CONFIG:
+        reasoning_data[CUSTOM_FIELD_CONFIG["field_name"]] = CUSTOM_FIELD_CONFIG["field_value"]
 
     reasoning_response = requests.post(
         LLM_SERVER_URL, json=reasoning_data, headers=headers, timeout=REASONING_PHASE_TIMEOUT
@@ -459,6 +468,10 @@ Now choose the final answer."""
         "top_p": TOP_P,
         "min_p": MIN_P,
     }
+    
+    # Add custom field if configured
+    if CUSTOM_FIELD_CONFIG and "field_name" in CUSTOM_FIELD_CONFIG and "field_value" in CUSTOM_FIELD_CONFIG:
+        answer_data[CUSTOM_FIELD_CONFIG["field_name"]] = CUSTOM_FIELD_CONFIG["field_value"]
 
     try:
         answer_data["response_format"] = {
